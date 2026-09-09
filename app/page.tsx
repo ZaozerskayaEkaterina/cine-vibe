@@ -1,69 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import FeatureCard from "./ui/FeatureCard";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      {/* Заголовок и название приложения */}
+      <header>
+        <p className="start">Кино-подборки</p>
+        <h1>Cine-Vibe</h1>
+        <p>
+          Cine-Vibe помогает находить фильмы по настроению и оригинальным интересам, а не по скучным жанрам.
+          Забудьте о бесконечном скроллинге — мы подберем идеальный фильм для вашего вечера.
+        </p>
+      </header>
+
+      {/* Целевая аудитория */}
+      <section aria-labelledby="audience-title">
+        <h2 id="audience-title">Для кого этот проект</h2>
+        <p>
+          Для людей, которые любят кино, но устали тратить часы на поиск фильма.
+          Для тех, кто хочет найти тот самый фильм под свое настроение, 
+          а не просто выбирать из тысяч названий.
+        </p>
+      </section>
+
+      {/* Три функции через компонент FeatureCard */}
+      <section aria-labelledby="features-title">
+        <h2 id="features-title">Как это работает</h2>
+        <div className="feature-list">
+          <FeatureCard
+            title="Подборки по настроению"
+            description="Фильмы для отдыха, вдохновения, уюта или острых ощущений — выбирайте свое настроение и получайте подборку."
+          />
+          <FeatureCard
+            title="Фильм дня"
+            description="Каждый день уникальная подборка из одного фильма с описанием, почему его стоит посмотреть именно сегодня."
+          />
+          <FeatureCard
+            title="Личная коллекция"
+            description="Сохраняйте понравившиеся фильмы в список Хочу посмотреть или Избранное — собирайте свою идеальную библиотеку."
+          />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Ссылка на страницу "О проекте" */}
+      <Link className="main-link" href="/about"> О проекте </Link>
+    </main>
   );
 }
