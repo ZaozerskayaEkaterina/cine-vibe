@@ -1,0 +1,100 @@
+/* Сетка карточек галереи. */
+.grid {
+  display: grid;
+  /* min(100%, 15rem) не даёт колонке стать шире контейнера на узком экране */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));  /* auto-fit — автоматически подбирает количество колонок */
+  gap: 1rem;  
+  margin-top: 1.5rem;  
+}
+
+/* Карточка — семантическая кнопка, а не div.
+   Фото занимает всю карточку, текст лежит поверх с затемнением. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 400px;
+  padding: 20px;
+  border: 1px solid #521414;
+  border-radius: 12px;
+  background: #2a0808;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+  font-size: inherit;
+  min-width: 0;   /* разрешает элементу сжиматься внутри grid */
+}
+
+/* Эффект наведения только для устройств с точным указателем (мышь, трекпад) */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: #f5e768;
+  }
+
+  .card:hover .image {
+    filter: brightness(0.5) blur(0px);
+  }
+}
+
+/* Заметный фокус при навигации с клавиатуры. */
+.card:focus-visible {
+  outline: 4px solid #f5e768;
+  outline-offset: 4px;
+}
+
+/* Фоновое изображение — на всю карточку, затемнённое и мутное. */
+.imageWrap {
+  position: absolute;
+  inset: 0;                        /* растягиваем на всю карточку */
+  z-index: 0;
+}
+
+.image {
+  object-fit: cover;               /* фото заполняет всю область без искажений */
+  filter: brightness(0.25) blur(2px);  /* затемнение + лёгкое размытие */
+  transition: filter 0.3s ease;
+}
+
+/* Текст поверх фото. */
+.title,
+.meta,
+.summary {
+  position: relative;              /* поднимаем текст над фото */
+  z-index: 1;
+}
+
+/* Заголовок прижат к верху карточки */
+.title {
+  margin-bottom: auto;
+  font-family: var(--font-castileo), Arial, sans-serif;
+  font-size: 26px;
+  color: #f5e768;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  color: #aca352;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.summary {
+  color: #d9d9d9;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.demoNote {
+  margin: 18px 0 32px;
+  color: #aca352;
+  font-style: italic;
+}
+
+.section {
+  margin-top: clamp(2rem, 6vw, 3rem);
+}

@@ -1,0 +1,31 @@
+.section {
+  margin-top: clamp(2rem, 6vw, 3rem);  /* отступ сверху: 32–48px, зависит от ширины экрана */
+}
+
+/* Контейнер карты. */
+.canvas {
+  width: 100%;                          /* карта на всю ширину родителя */
+  height: clamp(18rem, 58vh, 32rem);    /* высота: 288–512px, зависит от высоты экрана */
+  overflow: hidden;                     /* обрезаем всё, что вылезает за границы */
+  border: 1px solid #521414;            
+  border-radius: clamp(0.75rem, 2vw, 1rem); /* скругление: 12–16px */
+  background: #2a0808;                  
+}
+
+/* Статус загрузки карты. */
+.status {
+  padding: 0.75rem 0.9rem;              /* внутренние отступы: ~12px / ~14px */
+  border-left: 0.25rem solid #aca352;   
+  background: #2a0808;                  
+  color: #aca352;                       
+  font-size: 1rem;                      
+  overflow-wrap: anywhere;              /* длинный текст переносится, не вылезает */
+}
+
+/* На узком экране карта ниже и с меньшим радиусом */
+@media (max-width: 30rem) {             /* экран ≤ 480px */
+  .canvas {
+    height: min(65dvh, 24rem);          /* высота: 65% экрана, но не больше 384px */
+    border-radius: 0.6rem;              /* меньше скругление */
+  }
+}

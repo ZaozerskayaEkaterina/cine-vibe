@@ -1,9 +1,11 @@
+// Описание типов свойств
 type FeatureCardProps = {
     title: string;
     description: string;
 };
 
 
+// Создание компонента, который принимает эти свойства
 export default function FeatureCard({
     title,
     description,

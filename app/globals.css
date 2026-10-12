@@ -4,17 +4,27 @@
   padding: 0;
 }
 
+img,
+svg,
+video,
+canvas {  /* Чтобы медиа-элементы не вылезали за пределы родителя */
+  max-width: 100%;
+}
+
+
 body {
+  min-width: 20rem;  /* Минимальная ширина страницы, чтобы не ломался дизайн на очень узких экранах */
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cruinn), Arial, sans-serif;
+  font-size: 20px;
   color: #9b9b9b;
   background: #3d0c0c;
 }
 
 main {
-  width: min(900px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 48px 0;
+  width: min(1200px, 100%);  /* максимальная ширина блока main - 1200px, но не больше ширины экрана */
+  margin: 0 auto;  /* центрируем блок main по горизонтали */
+  padding: clamp(3rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);  /* верх/низ - от 3rem до 4rem, , лево/право - от 1rem до 2rem*/
 }
 
 header,
@@ -25,33 +35,315 @@ section {
 h1 {
   margin: 0 0 16px;
   font-size: clamp(36px, 7vw, 64px); /* мин, 7% от ширины экрана, макс */
-  color: #f5e768;
+  color: #f5e768;  
+  font-family: var(--font-castileo), Arial, sans-serif;
+  font-weight: normal; /* Нет автоматической жирности */
+  border-bottom: 1px solid #521414
 }
 
 h2 {
-  margin-bottom: 16px;
+  margin-bottom: 16px;  
+  font-family: var(--font-castileo), Arial, sans-serif;
+  color: #9b9b9b;
+  font-weight: normal; 
 }
 
 p, li {
   line-height: 1.6;
 }
 
+p.lead {
+  margin-bottom: 16px;
+}
+
 .start {
-  margin-bottom: 8px;
   font-weight: 700;
+  margin: 0 0 16px;
   text-transform: uppercase;
   color: #aca352;
 }
-
+  
 .feature-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
 }
 
 .main-link {
   display: inline-block;
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 20px;
   color: #f5e768;
   text-decoration: none;
+}
+
+
+/* --- Шапка и Навигация (AppNav) --- */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  
+  /* Выравниваем ширину и отступы шапки точно так же, как у блока <main> */
+  width: min(100%, calc(100% - 32px));
+  margin: 0 auto 32px auto;
+  
+  /* Боковые отступы внутри шапки */
+  padding: 24px 16px;
+  border-bottom: 1px solid #521414;
+}
+
+.brand {
+  font-family: var(--font-castileo), Arial, sans-serif;
+  font-size: 28px;
+  color: #f5e768;
+  text-decoration: none;
+}
+
+.nav-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-link {
+  color: #9b9b9b;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #f5e768;
+}
+
+.nav-link.active,
+.nav-link[aria-current="page"] {
+  color: #f5e768;
+  background-color: #521414;
+  font-weight: 500;
+}
+
+/* --- Блок авторизации в шапке --- */
+.auth-status-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.auth-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  color: #aca352;
+  font-size: 18px;
+}
+
+.login-link {
+  color: #f5e768;
+  text-decoration: none;
+  font-size: 18px;
+  border: 1px solid #f5e768;
+  padding: 6px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.login-link:hover {
+  background-color: #f5e768;
+  color: #3d0c0c;
+}
+
+/* --- Карточки в каталоге (feature-card) --- */
+.feature-card {
+  background: #2a0808;
+  border: 1px solid #521414;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  overflow-wrap: break-word;   /* переносит длинные слова */
+  min-width: 0;                /* разрешает элементу сжиматься внутри grid */
+
+}
+
+.feature-card h2 {
+  color: #f5e768;
+  margin-bottom: 0;
+  
+  margin-top: 0;
+  overflow-wrap: break-word;
+}
+
+.feature-card p {
+  overflow-wrap: break-word;
+}
+
+.film-meta {
+  color: #aca352;
+  font-size: 16px;
+}
+
+.film-mood {
+  font-style: italic;
+  font-size: 16px;
+  color: #9b9b9b;
+}
+
+/* --- Формы авторизации и регистрации --- */
+.form-page {
+  max-width: 500px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.auth-form label {
+  color: #aca352;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  background: #2a0808;
+  border: 1px solid #521414;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: var(--font-cruinn), Arial, sans-serif;
+  outline: none;
+}
+
+.auth-form input:focus {  /* Меняет цвет рамки поля ввода, когда пользователь ставит в него курсор */
+  border-color: #f5e768;
+}
+
+.auth-form button,
+.logout-btn {
+  background: #f5e768;
+  color: #3d0c0c;
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-family: var(--font-cruinn), Arial, sans-serif;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.auth-form button:hover {
+  opacity: 0.7;  /* Непрозрачность */
+}
+
+.logout-btn {
+  display: inline-block;
+  background: transparent;
+  color: #f5e768;
+  border: 1px solid #f5e768;
+  padding: 6px 16px;
+  font-size: 18px;
+  font-family: var(--font-cruinn), Arial, sans-serif;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #f5e768;
+  color: #3d0c0c;
+}
+
+/* Обёртка для одного поля формы: label + input + подсказка */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Маленькая подсказка под полем */
+.form-hint {
+  color: #9b9b9b;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Placeholder внутри поля ввода */
+.auth-form input::placeholder {
+  color: #6b4040;
+  font-style: italic;
+  opacity: 1;
+}
+
+/* --- Предупреждения и ошибки --- */
+.demo-warning {
+  background: #2a0808;
+  border-left: 4px solid #aca352;
+  padding: 12px 16px;
+  margin: 16px 0;
+  font-size: 16px;
+  color: #aca352;
+}
+
+.form-error {
+  color: #ff6b6b;
+  font-size: 16px;
+}
+
+/* --- Личный кабинет --- */
+.profile-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px 24px;
+  margin: 24px 0 32px;
+  background: #2a0808;
+  padding: 24px;
+  border: 1px solid #521414;
+  border-radius: 8px;
+}
+
+.profile-list dt {
+  color: #aca352;
+  font-weight: bold;
+}
+
+.profile-list dd {
+  color: #ffffff;
+}
+
+
+
+:focus-visible {  /* Стили для элементов, которые находятся в фокусе и видимы пользователю (например, при навигации с клавиатуры) */
+  outline: 0.25rem solid #f5e768;  
+  outline-offset: 0.2rem;  
+}
+
+
+/* Уменьшаем необязательное движение по системной настройке пользователя */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;  /* Отключает плавную прокрутку */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

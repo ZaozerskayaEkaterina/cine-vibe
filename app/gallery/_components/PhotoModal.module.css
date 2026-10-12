@@ -1,0 +1,215 @@
+/* Затемнённый фон на весь экран. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.5rem, 3vw, 1.5rem);  /* Отступы зависят от ширины экрана */
+  background: rgb(15 5 5 / 80%);
+}
+
+/* Само модальное окно. */
+.dialog {
+  position: relative;
+  width: min(47.5rem, 100%);          /* ограничение ширины */
+  max-height: calc(100dvh - 1rem);    /* ограничение высоты, чтобы окно не вылезало за экран */
+  overflow-y: auto;                   /* прокрутка содержимого */
+  overscroll-behavior: contain;       /* не прокручивать страницу за окном */
+  padding: clamp(1rem, 4vw, 1.75rem); /* отступы зависят от ширины экрана */
+  border-radius: clamp(0.75rem, 2vw, 1rem); /* радиус скругления зависит от ширины экрана - min, идеал, max */
+  background: rgba(56, 8, 8, 0.95);
+  color: #9b9b9b;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 60%);
+}
+
+.dialog h2 {
+  margin: 0 2rem 1rem 0;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-family: var(--font-castileo), Arial, sans-serif;
+  color: #f5e768;
+  font-weight: normal;
+  overflow-wrap: anywhere;   /* переносит длинные заголовки */
+}
+
+/* Кнопка закрытия. */
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #521414;
+  border-radius: 50%;
+  background: #2a0808;
+  color: #f5e768;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.close:hover {
+  background: #521414;
+}
+
+/* Заметный фокус при навигации с клавиатуры. */
+.close:focus-visible,
+.dialog a:focus-visible {
+  outline: 4px solid #f5e768;
+  outline-offset: 3px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 400px;
+  max-height: 40dvh;      /* ограничиваем высоту */
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.75rem;
+  margin-bottom: clamp(1rem, 4vw, 1.75rem);  /* отступ снизу зависит от ширины экрана */
+}
+
+.meta {
+  color: #aca352;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.mood {
+  color: #9b9b9b;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.demoNote {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-left: 4px solid #aca352;
+  background: #3d0c0c;
+  color: #aca352;
+  font-size: 16px;
+}
+
+.loginLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: #f5e768;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Кнопка избранного в модальном окне. */
+.favoriteButton {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: 1px solid #f5e768;
+  border-radius: 8px;
+  background: transparent;
+  color: #f5e768;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.favoriteButton:hover {
+  background-color: #f5e768;
+  color: #3d0c0c;
+}
+
+.favoriteButton:focus-visible {
+  outline: 4px solid #f5e768;
+  outline-offset: 3px;
+}
+
+
+
+
+
+/* Секция со списком сервисов, где доступен фильм */
+.streamingSection {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #521414;
+}
+
+/* Заголовок секции */
+.streamingTitle {
+  margin: 0 0 12px;
+  font-family: var(--font-castileo), Arial, sans-serif;
+  font-size: 20px;
+  color: #f5e768;
+  font-weight: normal;
+}
+
+/* Список сервисов */
+.streamingList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Каждая ссылка — узкая длинная полоска в затемнённом брендовом цвете */
+.streamingLink {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  /* Затемняем брендовый цвет через наложение чёрного слоя */
+  filter: brightness(0.65) saturate(0.9);
+}
+
+.streamingLink:hover {
+  filter: brightness(0.85) saturate(1);
+  transform: translateY(-1px);
+}
+
+.streamingLink:focus-visible {
+  outline: 3px solid #f5e768;
+  outline-offset: 2px;
+  filter: brightness(0.85);
+}
+
+
+
+
+/* Строка действий внутри модального окна */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.actions > * {  /* все кнопки и ссылки внутри .actions */
+  min-width: 0;   /* разрешает элементу сжиматься внутри flex */
+  min-height: 2.75rem;
+}
+
+/* На узком экране действия выстраиваются в столбик */
+@media (max-width: 30rem) {
+  .actions {
+    display: grid;
+  }
+  .actions > * {
+    width: 100%;
+  }
+}
+
+/* В альбомной ориентации с низким экраном окно почти на всю высоту */
+@media (orientation: landscape) and (max-height: 32rem) {
+  .dialog {
+    max-height: calc(90dvh - 0.5rem);
+  }
+}
